@@ -15,3 +15,5 @@ bun dev
 ```
 
 visit the site: https://nfl-bot-ui.vercel.app/
+![Screenshot 2024-10-12 at 12 01 45 AM](https://github.com/user-attachments/assets/593ff8ba-686a-44d1-b5cd-18dc762c72ea)
+
