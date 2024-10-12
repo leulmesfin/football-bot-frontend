@@ -6,15 +6,46 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
+type Command = {
+	name: string;
+	description: string;
+};
+
+const nfl_scores_cmd: Command = {
+	name: "$nfl_scores",
+	description:
+		"Displays the current week's NFL scores. It also displays the date and channel of each game.",
+};
+const bye_week_cmd: Command = {
+	name: "$bye_week",
+	description: "Displays all the NFL teams currently on a bye-week.",
+};
+const rushing_yds_cmd: Command = {
+	name: "$rushing_yards",
+	description: "Displays a leaderboard of the current week's rushing yards.",
+};
+const passing_yds_cmd: Command = {
+	name: "$passing_yards",
+	description: "Displays a leaderboard of the current week's passing yards.",
+};
+const receiving_yds_cmd: Command = {
+	name: "$receiving_yards",
+	description: "Displays a leaderboard of the current week's receiving yards.",
+};
+const aura_command: Command = {
+	name: "$aura_rank",
+	description: "Displays a leaderboard of the current week's Aura ranking.",
+};
+
 const discordCommands = () => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const commands = [
-		"$nfl_scores",
-		"$bye_week",
-		"$rushing_yards",
-		"$passing_yards",
-		"$receiving_yards",
-		"$aura_rank",
+	const commands: Command[] = [
+		nfl_scores_cmd,
+		bye_week_cmd,
+		rushing_yds_cmd,
+		passing_yds_cmd,
+		receiving_yds_cmd,
+		aura_command,
 	];
 	const [filtered_commands, setFilteredCommands] = useState(commands);
 
@@ -40,14 +71,14 @@ const discordCommands = () => {
 
 	useEffect(() => {
 		setFilteredCommands(
-			commands.filter((command) => command.includes(searchTerm))
+			commands.filter((command) => command.name.includes(searchTerm))
 		);
 	}, [searchTerm]);
 
 	return (
 		<div>
 			<Navbar />
-			<div className="bg-slate-600 h-full w-full">
+			<div className="bg-slate-600 h-full w-full min-h-screen">
 				<h1 className="text-4xl font-bold text-white text-center pt-4 pb-4">
 					Commands:
 				</h1>
@@ -64,79 +95,22 @@ const discordCommands = () => {
 
 				{/* All discord commands */}
 				<div className="flex flex-col items-center pt-5 gap-4 pb-5">
-					{filtered_commands.map((command) => {
-						return (
-							<Card className="text-center w-64">
-								<CardHeader>
-									<CardTitle>{command}</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<p>
-										Displays the current week's NFL scores. It also displays the
-										date and channel of each game.
-									</p>
-								</CardContent>
-							</Card>
-						);
-					})}
-					{/* <Card className="text-center w-64">
-						<CardHeader>
-							<CardTitle>$nfl_scores</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p>
-								Displays the current week's NFL scores. It also displays the
-								date and channel of each game.
-							</p>
-						</CardContent>
-					</Card> */}
-
-					{/* <Card className="text-center w-64">
-						<CardHeader>
-							<CardTitle>$bye_week</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p>Displays all the NFL teams currently on a bye-week.</p>
-						</CardContent>
-					</Card>
-
-					<Card className="text-center w-64">
-						<CardHeader>
-							<CardTitle>$rushing_yards</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p>Displays a leaderboard of the current week's rushing yards.</p>
-						</CardContent>
-					</Card>
-
-					<Card className="text-center w-64">
-						<CardHeader>
-							<CardTitle>$passing_yards</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p>Displays a leaderboard of the current week's passing yards.</p>
-						</CardContent>
-					</Card>
-
-					<Card className="text-center w-64">
-						<CardHeader>
-							<CardTitle>$receiving_yards</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p>
-								Displays a leaderboard of the current week's receiving yards.
-							</p>
-						</CardContent>
-					</Card>
-
-					<Card className="text-center w-64">
-						<CardHeader>
-							<CardTitle>$aura_rank</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p>Displays a leaderboard of the current week's Aura ranking.</p>
-						</CardContent>
-					</Card> */}
+					{filtered_commands.length != 0 ? (
+						filtered_commands.map((command) => {
+							return (
+								<Card className="text-center w-64">
+									<CardHeader>
+										<CardTitle>{command.name}</CardTitle>
+									</CardHeader>
+									<CardContent>
+										<p>{command.description}</p>
+									</CardContent>
+								</Card>
+							);
+						})
+					) : (
+						<p className="text-white text-2xl">Sorry, command not found. Please try again.</p>
+					)}
 				</div>
 			</div>
 			<Footer />

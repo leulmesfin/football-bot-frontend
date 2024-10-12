@@ -12,7 +12,7 @@ import {
 
 const Home = (): JSX.Element => {
 	return (
-		<div className="bg-slate-600 font-[family-name:var(--font-geist-sans)]">
+		<div className="bg-slate-600 ">
 			<Navbar />
 			<div className="flex flex-col items-center pt-5 gap-4 pb-5 h-screen w-screen">
 				<h1 className="text-4xl font-bold text-white text-center">
